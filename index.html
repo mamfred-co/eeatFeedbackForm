@@ -486,7 +486,7 @@
 
         function initializeFormSubmission() {
             //document.getElementById('feedbackForm').addEventListener('submit', handleFormSubmit);
-            const form = document.getElementById('form');
+            const form = document.getElementById('feedbackForm');
             const result = document.getElementById('result');
             form.addEventListener('submit', function (e) {
                 e.preventDefault();
@@ -495,7 +495,7 @@
                 const json = JSON.stringify(object);
                 result.innerHTML = "Please wait..."
 
-                fetch('https://api.web3forms.com/submit', {
+               /* fetch('https://api.web3forms.com/submit', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -522,7 +522,7 @@
                         setTimeout(() => {
                             result.style.display = "none";
                         }, 3000);
-                    });
+                    });*/
             });
         }
 
