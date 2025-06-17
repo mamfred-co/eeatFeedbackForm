@@ -172,14 +172,14 @@
 
         <!-- Form Container -->
         <div class="bg-white dark:bg-gray-800 rounded-b-lg shadow-lg p-8">
-            <form id="feedbackForm" class="space-y-8" form action="https://formsubmit.co/Technical@eeatgroup.com"
+            <form id="feedbackForm" class="space-y-8" action="https://formsubmit.co/Technical@eeatgroup.com"
                 method="POST">
 
                 <!--code to copy mail to nessary paties -->
-                <!--  <input type="hidden" name="_cc" value="info@eeatgroup.com,operations@eeatgroup.com"> -->
+                <!-- <input type="hidden" name="_cc" value="info@eeatgroup.com"> -->
                 <input type="hidden" name="_template" value="box">
 
-            
+
 
                 <!-- <input type="hidden" name="access_key" value="dc06dafb-95c5-4dd1-ae55-13978d360385"> -->
 
@@ -242,11 +242,11 @@
                             experience:</span>
                         <div class="star-rating" data-rating="overall-satisfaction">
                             <input type="hidden" name="overall_satisfaction" value="0"> <!-- Hidden input -->
-                            <span class="star" data-value="1">★</span>
-                            <span class="star" data-value="2">★</span>
-                            <span class="star" data-value="3">★</span>
-                            <span class="star" data-value="4">★</span>
-                            <span class="star" data-value="5">★</span>
+                            <span class="star" data-value="1">&#9734</span>
+                            <span class="star" data-value="2">&#9734</span>
+                            <span class="star" data-value="3">&#9734</span>
+                            <span class="star" data-value="4">&#9734</span>
+                            <span class="star" data-value="5">&#9734</span>
                         </div>
                         <span class="text-sm text-gray-500 dark:text-gray-400">(1 = Poor, 2 = Bad, 3 = Good, 4 = V.Good
                             5 =
@@ -265,11 +265,11 @@
                                 Technical Expertise
                             </label>
                             <div class="star-rating" data-rating="technical-expertise">
-                                <span class="star" data-value="1">★</span>
-                                <span class="star" data-value="2">★</span>
-                                <span class="star" data-value="3">★</span>
-                                <span class="star" data-value="4">★</span>
-                                <span class="star" data-value="5">★</span>
+                                <span class="star" data-value="1">&#9734</span>
+                                <span class="star" data-value="2">&#9734</span>
+                                <span class="star" data-value="3">&#9734</span>
+                                <span class="star" data-value="4">&#9734</span>
+                                <span class="star" data-value="5">&#9734</span>
                             </div>
                         </div>
 
@@ -279,11 +279,11 @@
                                 Timeline Adherence
                             </label>
                             <div class="star-rating" data-rating="timeline-adherence">
-                                <span class="star" data-value="1">★</span>
-                                <span class="star" data-value="2">★</span>
-                                <span class="star" data-value="3">★</span>
-                                <span class="star" data-value="4">★</span>
-                                <span class="star" data-value="5">★</span>
+                                <span class="star" data-value="1">&#9734</span>
+                                <span class="star" data-value="2">&#9734</span>
+                                <span class="star" data-value="3">&#9734</span>
+                                <span class="star" data-value="4">&#9734</span>
+                                <span class="star" data-value="5">&#9734</span>
                             </div>
                         </div>
 
@@ -293,11 +293,11 @@
                                 Communication Quality
                             </label>
                             <div class="star-rating" data-rating="communication">
-                                <span class="star" data-value="1">★</span>
-                                <span class="star" data-value="2">★</span>
-                                <span class="star" data-value="3">★</span>
-                                <span class="star" data-value="4">★</span>
-                                <span class="star" data-value="5">★</span>
+                                <span class="star" data-value="1">&#9734</span>
+                                <span class="star" data-value="2">&#9734</span>
+                                <span class="star" data-value="3">&#9734</span>
+                                <span class="star" data-value="4">&#9734</span>
+                                <span class="star" data-value="5">&#9734</span>
                             </div>
                         </div>
 
@@ -307,11 +307,11 @@
                                 Safety Standards
                             </label>
                             <div class="star-rating" data-rating="safety-standards">
-                                <span class="star" data-value="1">★</span>
-                                <span class="star" data-value="2">★</span>
-                                <span class="star" data-value="3">★</span>
-                                <span class="star" data-value="4">★</span>
-                                <span class="star" data-value="5">★</span>
+                                <span class="star" data-value="1">&#9734</span>
+                                <span class="star" data-value="2">&#9734</span>
+                                <span class="star" data-value="3">&#9734</span>
+                                <span class="star" data-value="4">&#9734</span>
+                                <span class="star" data-value="5">&#9734</span>
                             </div>
                         </div>
                     </div>
@@ -423,7 +423,7 @@
         }
 
         // Star rating functionality
-        /*
+
         function initializeStarRatings() {
             document.querySelectorAll('.star-rating').forEach(rating => {
                 const stars = rating.querySelectorAll('.star');
@@ -445,32 +445,32 @@
                     updateStars(stars, currentRating);
                 });
             });
-        }*/
+        }
 
         function initializeStarRatings() {
-    document.querySelectorAll('.star-rating').forEach(rating => {
-        const stars = rating.querySelectorAll('.star');
-        const hiddenInput = rating.querySelector('input[type="hidden"]'); // Get the hidden input
+            document.querySelectorAll('.star-rating').forEach(rating => {
+                const stars = rating.querySelectorAll('.star');
+                const hiddenInput = rating.querySelector('input[type="hidden"]'); // Get the hidden input
 
-        let currentRating = 0;
+                let currentRating = 0;
 
-        stars.forEach((star, index) => {
-            star.addEventListener('click', () => {
-                currentRating = index + 1;
-                updateStars(stars, currentRating);
-                hiddenInput.value = currentRating; // Set the hidden input value
+                stars.forEach((star, index) => {
+                    star.addEventListener('click', () => {
+                        currentRating = index + 1;
+                        updateStars(stars, currentRating);
+                        hiddenInput.value = currentRating; // Set the hidden input value
+                    });
+
+                    star.addEventListener('mouseenter', () => {
+                        updateStars(stars, index + 1);
+                    });
+                });
+
+                rating.addEventListener('mouseleave', () => {
+                    updateStars(stars, currentRating);
+                });
             });
-
-            star.addEventListener('mouseenter', () => {
-                updateStars(stars, index + 1);
-            });
-        });
-
-        rating.addEventListener('mouseleave', () => {
-            updateStars(stars, currentRating);
-        });
-    });
-}
+        }
 
         function updateStars(stars, rating) {
             stars.forEach((star, index) => {
@@ -486,7 +486,7 @@
 
         function initializeFormSubmission() {
             //document.getElementById('feedbackForm').addEventListener('submit', handleFormSubmit);
-            const form = document.getElementById('feedbackForm');
+            const form = document.getElementById('form');
             const result = document.getElementById('result');
             form.addEventListener('submit', function (e) {
                 e.preventDefault();
@@ -495,7 +495,7 @@
                 const json = JSON.stringify(object);
                 result.innerHTML = "Please wait..."
 
-               /* fetch('https://api.web3forms.com/submit', {
+                fetch('https://api.web3forms.com/submit', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -503,6 +503,7 @@
                     },
                     body: json
                 })
+
                     .then(async (response) => {
                         let json = await response.json();
                         if (response.status == 200) {
@@ -522,7 +523,7 @@
                         setTimeout(() => {
                             result.style.display = "none";
                         }, 3000);
-                    });*/
+                    });
             });
         }
 
@@ -531,9 +532,6 @@
 
             // Collect form data
             const formData = collectFormData();
-
-            // Show success notification
-            showSuccessNotification();
 
             // Log data (in a real application, this would be sent to a server)
             console.log('Feedback submitted:', formData);
@@ -561,26 +559,6 @@
             }
         }
 
-        function showSuccessNotification() {
-            const notification = document.createElement('div');
-            notification.className = 'success-notification';
-            notification.innerHTML = `
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                </svg>
-                <span>Feedback submitted successfully!</span>
-            `;
-
-            document.body.appendChild(notification);
-
-            // Auto-remove notification after 3 seconds
-            setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.parentNode.removeChild(notification);
-                }
-            }, 3000);
-        }
-
         // Initialize all functionality when DOM is loaded
         document.addEventListener('DOMContentLoaded', function () {
             initializeDarkMode();
@@ -594,10 +572,6 @@
             showSuccessNotification,
             updateStars
         };
-
-        //const form = document.getElementById('form');
-        //const result = document.getElementById('result');
-
 
     </script>
 </body>
