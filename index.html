@@ -172,7 +172,7 @@
 
         <!-- Form Container -->
         <div class="bg-white dark:bg-gray-800 rounded-b-lg shadow-lg p-8">
-            <form id="feedbackForm" class="space-y-8" action="https://formsubmit.co/Technical@eeatgroup.com"
+            <form id="feedbackForm" class="space-y-8" form action="https://formsubmit.co/technical@eeatgroup.com"
                 method="POST">
 
                 <!--code to copy mail to nessary paties -->
@@ -447,30 +447,7 @@
             });
         }
 
-        function initializeStarRatings() {
-            document.querySelectorAll('.star-rating').forEach(rating => {
-                const stars = rating.querySelectorAll('.star');
-                const hiddenInput = rating.querySelector('input[type="hidden"]'); // Get the hidden input
 
-                let currentRating = 0;
-
-                stars.forEach((star, index) => {
-                    star.addEventListener('click', () => {
-                        currentRating = index + 1;
-                        updateStars(stars, currentRating);
-                        hiddenInput.value = currentRating; // Set the hidden input value
-                    });
-
-                    star.addEventListener('mouseenter', () => {
-                        updateStars(stars, index + 1);
-                    });
-                });
-
-                rating.addEventListener('mouseleave', () => {
-                    updateStars(stars, currentRating);
-                });
-            });
-        }
 
         function updateStars(stars, rating) {
             stars.forEach((star, index) => {
