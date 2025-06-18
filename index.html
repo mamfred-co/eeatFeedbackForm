@@ -429,27 +429,28 @@
         // Star rating functionality
 
         function initializeStarRatings() {
-            document.querySelectorAll('.star-rating').forEach(rating => {
-                const stars = rating.querySelectorAll('.star');
-                let currentRating = 0;
+    document.querySelectorAll('.star-rating').forEach(rating => {
+        const stars = rating.querySelectorAll('.star');
+        let currentRating = 0;
 
-                stars.forEach((star, index) => {
-                    star.addEventListener('click', () => {
-                        currentRating = index + 1;
-                        updateStars(stars, currentRating);
-                        rating.setAttribute('data-value', currentRating);
-                    });
-
-                    star.addEventListener('mouseenter', () => {
-                        updateStars(stars, index + 1);
-                    });
-                });
-
-                rating.addEventListener('mouseleave', () => {
-                    updateStars(stars, currentRating);
-                });
+        stars.forEach((star, index) => {
+            star.addEventListener('click', () => {
+                currentRating = index + 1;
+                updateStars(stars, currentRating);
+                rating.setAttribute('data-value', currentRating);
+                rating.querySelector('input[type="hidden"]').value = currentRating;  // Update hidden input
             });
-        }
+
+            star.addEventListener('mouseenter', () => {
+                updateStars(stars, index + 1);
+            });
+        });
+
+        rating.addEventListener('mouseleave', () => {
+            updateStars(stars, currentRating);
+        });
+    });
+}
 
 
 
