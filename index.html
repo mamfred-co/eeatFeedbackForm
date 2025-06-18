@@ -242,8 +242,8 @@
                             experience:</span>
                         <div class="star-rating" data-rating="Overall-Satisfaction">
                             <input type="hidden" name="overall_satisfaction" value="0"> <!-- Hidden input -->
-                            <span class="star" data-value="&#9734">&#9734</span>
-                            <span class="star" data-value="&#9734 &#9734">&#9734</span>
+                            <span class="star" data-value="1">&#9734</span>
+                            <span class="star" data-value="2"</span>
                             <span class="star" data-value="&#9734 &#9734 &#9734">&#9734</span>
                             <span class="star" data-value="&#9734 &#9734 &#9734 &#9734">&#9734</span>
                             <span class="star" data-value="&#9734 &#9734 &#9734 &#9734 &#9734">&#9734</span>
@@ -431,6 +431,7 @@
         function initializeStarRatings() {
     document.querySelectorAll('.star-rating').forEach(rating => {
         const stars = rating.querySelectorAll('.star');
+        const hiddenInput = rating.querySelector('input[type="hidden"]'); // Get the hidden input
         let currentRating = 0;
 
         stars.forEach((star, index) => {
@@ -438,7 +439,7 @@
                 currentRating = index + 1;
                 updateStars(stars, currentRating);
                 rating.setAttribute('data-value', currentRating);
-                rating.querySelector('input[type="hidden"]').value = currentRating;  // Update hidden input
+                hiddenInput.value = currentRating;  // Update hidden input
             });
 
             star.addEventListener('mouseenter', () => {
