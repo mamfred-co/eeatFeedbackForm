@@ -241,12 +241,12 @@
                         <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Rate your overall
                             experience:</span>
                         <div class="star-rating" data-rating="Overall-Satisfaction">
-                            <input type="hidden" name="overall_satisfaction" value="0"> <!-- Hidden input -->
+                            <input type="hidden" name="overall_satisfaction" value='★'> <!-- Hidden input -->
                             <span class="star" data-value="1">&#9734</span>
                             <span class="star" data-value="2"</span>
-                            <span class="star" data-value="&#9734 &#9734 &#9734">&#9734</span>
-                            <span class="star" data-value="&#9734 &#9734 &#9734 &#9734">&#9734</span>
-                            <span class="star" data-value="&#9734 &#9734 &#9734 &#9734 &#9734">&#9734</span>
+                            <span class="star" data-value="3">&#9734</span>
+                            <span class="star" data-value="4">&#9734</span>
+                            <span class="star" data-value="5">&#9734</span>
                         </div>
                         <span class="text-sm text-gray-500 dark:text-gray-400">(1 = Poor, 2 = Bad, 3 = Good, 4 = V.Good
                             5 =
@@ -436,8 +436,8 @@
 
         stars.forEach((star, index) => {
             star.addEventListener('click', () => {
-                currentRating = index + 1;
-                updateStars(stars, currentRating);
+                currentRating = '★'.repeat(index + 1); // Set stars as characters
+                updateStars(stars, index + 1); // Update star visuals
                 rating.setAttribute('data-value', currentRating);
                 hiddenInput.value = currentRating;  // Update hidden input
             });
