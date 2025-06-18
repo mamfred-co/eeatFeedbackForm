@@ -432,14 +432,14 @@
     document.querySelectorAll('.star-rating').forEach(rating => {
         const stars = rating.querySelectorAll('.star');
         const hiddenInput = rating.querySelector('input[type="hidden"]'); // Get the hidden input
-        let currentRating = '';
+        let currentRating = 0; // Use a number to track the current rating
 
         stars.forEach((star, index) => {
             star.addEventListener('click', () => {
-                currentRating = '★'.repeat(index + 1); // Set stars as characters
-                updateStars(stars, index + 1); // Update star visuals
+                currentRating = index + 1; // Update currentRating on click
+                updateStars(stars, currentRating); // Update star visuals
                 rating.setAttribute('data-value', currentRating);
-                hiddenInput.value = currentRating;  // Update hidden input with stars
+                hiddenInput.value = currentRating;  // Update hidden input with numeric value
             });
 
             star.addEventListener('mouseenter', () => {
@@ -448,7 +448,7 @@
         });
 
         rating.addEventListener('mouseleave', () => {
-            updateStars(stars, currentRating.length); // Update based on current rating length
+            updateStars(stars, currentRating); // Keep the current rating highlighted
         });
     });
 }
@@ -456,9 +456,9 @@
 function updateStars(stars, rating) {
     stars.forEach((star, index) => {
         if (index < rating) {
-            star.classList.add('active');
+            star.classList.add('active'); // Add active class for selected stars
         } else {
-            star.classList.remove('active');
+            star.classList.remove('active'); // Remove active class for unselected stars
         }
     });
 }
