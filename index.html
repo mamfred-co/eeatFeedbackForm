@@ -519,26 +519,25 @@ function updateStars(stars, rating) {
         }
 
         function collectFormData() {
-            function collectFormData() {
-                const formData = new FormData(document.getElementById('feedbackForm'));
-                const data = Object.fromEntries(formData.entries());
+    const formData = new FormData(document.getElementById('feedbackForm'));
+    const data = Object.fromEntries(formData.entries());
 
-                // Collect star ratings
-                const ratings = {};
-                document.querySelectorAll('.star-rating').forEach(rating => {
-                    const name = rating.getAttribute('data-rating');
-                    const value = rating.getAttribute('data-value') || 0;
-                    ratings[name] = parseInt(value);
-                });
+    // Collect star ratings as stars
+    const ratings = {};
+    document.querySelectorAll('.star-rating').forEach(rating => {
+        const name = rating.getAttribute('data-rating');
+        const value = rating.getAttribute('data-value') || 0;
+        const stars = '★'.repeat(value) + '☆'.repeat(5 - value); // Create star representation
+        ratings[name] = stars; // Store stars instead of numeric value
+    });
 
-                // Combine form data and ratings
-                return {
-                    ...data,
-                    ...ratings,
-                    submittedAt: new Date().toISOString()
-                };
-            }
-        }
+    // Combine form data and ratings
+    return {
+        ...data,
+        ...ratings,
+        submittedAt: new Date().toISOString()
+    };
+}
 
         // Initialize all functionality when DOM is loaded
         document.addEventListener('DOMContentLoaded', function () {
