@@ -4,6 +4,566 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://eeatgroup.com/wp-content/uploads/2025/01/cropped-eeatgroup_logo-1-300x212.png">
+    <title>Customer Feedback Form - EEAT Group</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* CSS STYLES */
+        :root {
+            --primary-color: #5D5CDE;
+            --oil-blue: #1e3a8a;
+            --gas-orange: #ea580c;
+        }
+
+        .star-rating {
+            display: flex;
+            gap: 4px;
+        }
+
+        .star {
+            cursor: pointer;
+            font-size: 24px;
+            color: #d1d5db;
+            transition: color 0.2s ease;
+            user-select: none;
+        }
+
+        .star.active,
+        .star:hover {
+            color: #fbbf24;
+        }
+
+        .star:hover~.star {
+            color: #d1d5db;
+        }
+
+        .logo-placeholder {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px dashed rgba(255, 255, 255, 0.4);
+        }
+
+        .gradient-header {
+            background: linear-gradient(to right, var(--oil-blue), var(--gas-orange));
+        }
+
+        .gradient-button {
+            background: linear-gradient(to right, var(--oil-blue), var(--gas-orange));
+            transition: all 0.2s ease;
+        }
+
+        .gradient-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .success-notification {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background-color: #10b981;
+            color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Dark mode styles */
+        @media (prefers-color-scheme: dark) {
+            .star {
+                color: #4b5563;
+            }
+
+            .dark .star.active,
+            .dark .star:hover {
+                color: #fbbf24;
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .logo-placeholder {
+                width: 80px;
+                height: 40px;
+            }
+
+            .star {
+                font-size: 20px;
+            }
+        }
+
+        /* Custom form styles */
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            ring: 2px;
+            ring-color: var(--primary-color);
+            border-color: transparent;
+        }
+
+        .dark .form-input {
+            background-color: #374151;
+            border-color: #4b5563;
+            color: white;
+        }
+
+        .section-card {
+            background-color: #f9fafb;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+        }
+
+        .dark .section-card {
+            background-color: #374151;
+        }
+
+        .recommendation-card {
+            background-color: #eff6ff;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+        }
+
+        .dark .recommendation-card {
+            background-color: rgba(29, 78, 216, 0.2);
+        }
+    </style>
+</head>
+
+<body class="bg-white dark:bg-gray-900 min-h-screen">
+    <!-- HTML STRUCTURE -->
+    <div class="max-w-4xl mx-auto p-6">
+        <!-- Header with Logo Spaces -->
+        <div class="gradient-header p-6 rounded-t-lg shadow-lg">
+            <p style="color: #d1d5db;">EEAT/QMS/TP/CFF/007</p>
+            <div class="flex justify-between items-center mb-4">
+
+
+                <!-- Center Title -->
+                <div class="flex-2 text-center px-4">
+                    <h1 class="text-2xl md:text-3xl font-bold text-white">Customer Feedback Form</h1>
+                    <p class="text-white/90 mt-1">EMPOWER ENGINEERING AND ACCESS TECHNOLOGY Group<br>(EEAT)</br> </p>
+                </div>
+
+                <!-- EEAT Group Logo Space -->
+                <div class="flex-1 flex justify-end">
+
+                    <img src="https://eeatgroup.com/wp-content/uploads/2025/01/cropped-eeatgroup_logo-1-300x212.png"
+                        alt="Girl in a jacket" width="500" height="600">
+
+                </div>
+            </div>
+
+            <div class="text-center">
+                <p class="text-white/90 text-sm">Your feedback helps us improve our services and maintain the highest
+                    standards in the oil and gas industry</p>
+            </div>
+        </div>
+
+        <!-- Form Container -->
+        <div class="bg-white dark:bg-gray-800 rounded-b-lg shadow-lg p-8">
+            <form id="feedbackForm" class="space-y-8" form action="https://formsubmit.co/technical@eeatgroup.com"
+                method="POST">
+
+                <!--code to copy mail to nessary paties -->
+                <!-- <input type="hidden" name="_cc" value="info@eeatgroup.com"> -->
+                <input type="hidden" name="_template" value="table">
+
+
+
+                <!-- <input type="hidden" name="access_key" value="dc06dafb-95c5-4dd1-ae55-13978d360385"> -->
+
+                <!-- Project Information -->
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Company Name *
+                        </label>
+                        <input type="text" required name="COMPANY NAME"
+                            class="form-input dark:bg-gray-700 dark:text-white" placeholder="Your company name">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Project/Service Type
+                        </label>
+                        <select name="PROJECT / SERVICE TYPE" class="form-input dark:bg-gray-700 dark:text-white">
+                            <option value="">Select service type</option>
+                            <option value="Maintenance">Maintenance Service</option>
+                            <option value="ENGINEERING & Consultancy">ENGINEERING & Consultancy</option>
+                            <option value="Welding & Fabrication">Welding & Fabrication</option>
+                            <option value="NDT Inspection">NDT Inspection</option>
+                            <option value="Procurement & Supply Chain Division">Procurement & Supply Chain Division
+                            </option>
+                            <option value="Asset Intergrity Managemnet">Asset Intergrity Managemnet</option>
+                            <option value="Safe Lifting Operations">Safe Lifting Operations</option>
+                            <option value="Lifting Equipment Testing & Certification">Lifting Equipment Testing &
+                                Certification</option>
+                            <option value="Rope Access">Rope Access</option>
+                            <option value="Manpower Supply">Manpower Supply</option>
+                            <option value="Corrosion Control and Cathodic Protection">Corrosion Control and Cathodic
+                                Protection</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Contact Person *
+                        </label>
+                        <input type="text" required name="CONTACT PERSON"
+                            class="form-input dark:bg-gray-700 dark:text-white" placeholder="Full name">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Email Address *
+                        </label>
+                        <input type="email" required name="EMAIL"
+                            class="form-input dark:bg-gray-700 dark:text-white" placeholder="contact@company.com">
+                    </div>
+                </div>
+
+                <!-- Overall Satisfaction Rating -->
+                <div class="section-card">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Overall Satisfaction</h3>
+                    <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+                        <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Rate your overall
+                            experience:</span>
+                        <div class="star-rating" data-rating="Overall-Satisfaction">
+                            <input type="hidden" name="OVERALL_SATISFACTION" value="0"> <!-- Hidden input -->
+                            <span class="star" data-value="1">&#9734</span>
+                            <span class="star" data-value="2">&#9734</span>
+                            <span class="star" data-value="3">&#9734</span>
+                            <span class="star" data-value="4">&#9734</span>
+                            <span class="star" data-value="5">&#9734</span>
+                        </div>
+                        <span class="text-sm text-gray-500 dark:text-gray-400">(1 = Poor, 2 = Bad, 3 = Good, 4 = V.Good
+                            5 =
+                            Excellent)</span>
+                    </div>
+                </div>
+
+                <!-- Service Quality Ratings -->
+                <div class="space-y-6">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Service Quality Assessment</h3>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Technical Expertise -->
+                        <div class="space-y-3">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                Technical Expertise
+                            </label>
+                            <div class="star-rating" data-rating="Technical-Expertise">
+                                <input type="hidden" name="TECHNICAL-EXPERTISE" value="0"> <!-- Hidden input -->
+                                <span class="star" data-value="1">&#9734</span>
+                                <span class="star" data-value="2">&#9734</span>
+                                <span class="star" data-value="3">&#9734</span>
+                                <span class="star" data-value="4">&#9734</span>
+                                <span class="star" data-value="5">&#9734</span>
+                            </div>
+                        </div>
+
+                        <!-- Timeline Adherence -->
+                        <div class="space-y-3">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                Timeline Adherence
+                            </label>
+                            <div class="star-rating" data-rating="timeline-adherence">
+                                 <input type="hidden" name="Technical-Adherence" value="0"> <!-- Hidden input -->
+                                <span class="star" data-value="1">&#9734</span>
+                                <span class="star" data-value="2">&#9734</span>
+                                <span class="star" data-value="3">&#9734</span>
+                                <span class="star" data-value="4">&#9734</span>
+                                <span class="star" data-value="5">&#9734</span>
+                            </div>
+                        </div>
+
+                        <!-- Communication -->
+                        <div class="space-y-3">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                Communication Quality
+                            </label>
+                            <div class="star-rating" data-rating="communication">
+                                 <input type="hidden" name="Communication" value="0"> <!-- Hidden input -->
+                                <span class="star" data-value="1">&#9734</span>
+                                <span class="star" data-value="2">&#9734</span>
+                                <span class="star" data-value="3">&#9734</span>
+                                <span class="star" data-value="4">&#9734</span>
+                                <span class="star" data-value="5">&#9734</span>
+                            </div>
+                        </div>
+
+                        <!-- Safety Standards -->
+                        <div class="space-y-3">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                Safety Standards
+                            </label>
+                            <div class="star-rating" data-rating="safety-standards">
+                                 <input type="hidden" name="Safety-Standards" value="0"> <!-- Hidden input -->
+                                <span class="star" data-value="1">&#9734</span>
+                                <span class="star" data-value="2">&#9734</span>
+                                <span class="star" data-value="3">&#9734</span>
+                                <span class="star" data-value="4">&#9734</span>
+                                <span class="star" data-value="5">&#9734</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detailed Feedback -->
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            What did we do well?
+                        </label>
+                        <textarea rows="4" name="What we did well (Positive Comments)"
+                            class="form-input dark:bg-gray-700 dark:text-white"
+                            placeholder="Please share what aspects of our service exceeded your expectations..."></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Areas for Improvement
+                        </label>
+                        <textarea rows="4" name="Improvement Suggestions"
+                            class="form-input dark:bg-gray-700 dark:text-white"
+                            placeholder="How can we improve our services? Your suggestions are valuable to us..."></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Additional Comments
+                        </label>
+                        <textarea rows="3" name="Additional Comments"
+                            class="form-input dark:bg-gray-700 dark:text-white"
+                            placeholder="Any other feedback or comments..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Recommendation -->
+                <div class="recommendation-card">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Recommendation</h3>
+                    <div class="space-y-3">
+                        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                            Would you recommend EEAT Group to other companies in the oil & gas industry?
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <label class="flex items-center">
+                                <input type="radio" name="recommendation" value="definitely"
+                                    class="w-4 h-4 text-blue-600 focus:ring-blue-500">
+                                <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Definitely</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="recommendation" value="probably"
+                                    class="w-4 h-4 text-blue-600 focus:ring-blue-500">
+                                <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Probably</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="recommendation" value="maybe"
+                                    class="w-4 h-4 text-blue-600 focus:ring-blue-500">
+                                <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Maybe</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="recommendation" value="probably-not"
+                                    class="w-4 h-4 text-blue-600 focus:ring-blue-500">
+                                <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Probably Not</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="recommendation" value="definitely-not"
+                                    class="w-4 h-4 text-blue-600 focus:ring-blue-500">
+                                <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Definitely Not</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center pt-6">
+                    <button type="submit"
+                        class="gradient-button text-white px-8 py-4 rounded-lg font-semibold text-lg shadow-lg">
+                        Submit Feedback
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-8 text-sm text-gray-500 dark:text-gray-400">
+            <p>Thank you for taking the time to provide your valuable feedback.</p>
+            <p class="mt-1">EEAT Group - Excellence in Oil & Gas Services | www.eeatgroup.com</p>
+        </div>
+    </div>
+
+    <script>
+        // JAVASCRIPT CODE
+
+
+
+        // Initialize dark mode
+
+        function initializeDarkMode() {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.classList.add('dark');
+            }
+
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+                if (event.matches) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            });
+        }
+
+        // Star rating functionality
+
+        function initializeStarRatings() {
+    document.querySelectorAll('.star-rating').forEach(rating => {
+        const stars = rating.querySelectorAll('.star');
+        const hiddenInput = rating.querySelector('input[type="hidden"]'); // Get the hidden input
+        let currentRating = 0; // Use a number to track the current rating
+
+        stars.forEach((star, index) => {
+            star.addEventListener('click', () => {
+                currentRating = index + 1; // Update currentRating on click
+                updateStars(stars, currentRating); // Update star visuals
+                rating.setAttribute('data-value', currentRating);
+                hiddenInput.value = currentRating;  // Update hidden input with numeric value
+            });
+
+            star.addEventListener('mouseenter', () => {
+                updateStars(stars, index + 1);
+            });
+        });
+
+        rating.addEventListener('mouseleave', () => {
+            updateStars(stars, currentRating); // Keep the current rating highlighted
+        });
+    });
+}
+
+function updateStars(stars, rating) {
+    stars.forEach((star, index) => {
+        if (index < rating) {
+            star.classList.add('active'); // Add active class for selected stars
+        } else {
+            star.classList.remove('active'); // Remove active class for unselected stars
+        }
+    });
+}
+
+        // Form submission handler
+
+        function initializeFormSubmission() {
+            //document.getElementById('feedbackForm').addEventListener('submit', handleFormSubmit);
+            const form = document.getElementById('form');
+            const result = document.getElementById('result');
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const formData = new FormData(form);
+                const object = Object.fromEntries(formData);
+                const json = JSON.stringify(object);
+                result.innerHTML = "Please wait..."
+
+                fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: json
+                })
+
+                    .then(async (response) => {
+                        let json = await response.json();
+                        if (response.status == 200) {
+                            result.innerHTML = "Form submitted successfully";
+                        } else {
+                            console.log(response);
+                            result.innerHTML = json.message;
+                        }
+                    })
+
+                    .catch(error => {
+                        console.log(error);
+                        result.innerHTML = "Something went wrong!";
+                    })
+                    .then(function () {
+                        form.reset();
+                        setTimeout(() => {
+                            result.style.display = "none";
+                        }, 3000);
+                    });
+            });
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            // Collect form data
+            const formData = collectFormData();
+
+            // Log data (in a real application, this would be sent to a server)
+            console.log('Feedback submitted:', formData);
+        }
+
+        function collectFormData() {
+            function collectFormData() {
+                const formData = new FormData(document.getElementById('feedbackForm'));
+                const data = Object.fromEntries(formData.entries());
+
+                // Collect star ratings
+                const ratings = {};
+                document.querySelectorAll('.star-rating').forEach(rating => {
+                    const name = rating.getAttribute('data-rating');
+                    const value = rating.getAttribute('data-value') || 0;
+                    ratings[name] = parseInt(value);
+                });
+
+                // Combine form data and ratings
+                return {
+                    ...data,
+                    ...ratings,
+                    submittedAt: new Date().toISOString()
+                };
+            }
+        }
+
+        // Initialize all functionality when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            initializeDarkMode();
+            initializeStarRatings();
+            initializeFormSubmission();
+        });
+
+        // Export functions for potential external use
+        window.FeedbackForm = {
+            collectFormData,
+            showSuccessNotification,
+            updateStars
+        };
+
+    </script>
+</body>
+
+</html>
+/<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="C:\Users\User\Desktop\SIS\LOGO-clean.png">
     <title>Customer Feedback Form - SIS INSPECTIONS</title>
     <script src="https://cdn.tailwindcss.com"></script>
