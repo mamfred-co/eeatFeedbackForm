@@ -388,9 +388,6 @@
                     </div>
                 </div>
 
-                <input type="hidden" name="_template" value="table">
-                <input type="hidden" name="SATISFACTION_PERCENTAGE" value="0"> <!-- Hidden input for satisfaction percentage -->
-
                 <!-- Submit Button -->
                 <div class="text-center pt-6">
                     <button type="submit"
@@ -469,34 +466,47 @@ function updateStars(stars, rating) {
         // Form submission handler
 
         function initializeFormSubmission() {
-    const form = document.getElementById('feedbackForm');
-    form.addEventListener('submit', function (e) {
-        e.preventDefault();
+            //document.getElementById('feedbackForm').addEventListener('submit', handleFormSubmit);
+            const form = document.getElementById('form');
+            const result = document.getElementById('result');
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const formData = new FormData(form);
+                const object = Object.fromEntries(formData);
+                const json = JSON.stringify(object);
+                result.innerHTML = "Please wait..."
 
-        const ratingsArray = [];
-        // Collect ratings only from the specified categories
-        const technicalExpertise = parseInt(document.querySelector('[data-rating="Technical-Expertise"]').getAttribute('data-value')) || 0;
-        const timelineAdherence = parseInt(document.querySelector('[data-rating="timeline-adherence"]').getAttribute('data-value')) || 0;
-        const communicationQuality = parseInt(document.querySelector('[data-rating="communication"]').getAttribute('data-value')) || 0;
-        const safetyStandards = parseInt(document.querySelector('[data-rating="safety-standards"]').getAttribute('data-value')) || 0;
+                fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: json
+                })
 
-        ratingsArray.push(technicalExpertise, timelineAdherence, communicationQuality, safetyStandards);
+                    .then(async (response) => {
+                        let json = await response.json();
+                        if (response.status == 200) {
+                            result.innerHTML = "Form submitted successfully";
+                        } else {
+                            console.log(response);
+                            result.innerHTML = json.message;
+                        }
+                    })
 
-        // Calculate the total satisfaction percentage
-        const totalRating = ratingsArray.reduce((a, b) => a + b, 0);
-        const satisfactionPercentage = (totalRating * 20) / ratingsArray.length; // Each star is 20%
-
-        // Update the hidden input with the satisfaction percentage
-        form.querySelector('input[name="SATISFACTION_PERCENTAGE"]').value = satisfactionPercentage.toFixed(2);
-
-        // Submit the form data
-        const formData = new FormData(form);
-        const object = Object.fromEntries(formData);
-        const json = JSON.stringify(object);
-
-        // Your fetch logic to submit the form...
-    });
-}
+                    .catch(error => {
+                        console.log(error);
+                        result.innerHTML = "Something went wrong!";
+                    })
+                    .then(function () {
+                        form.reset();
+                        setTimeout(() => {
+                            result.style.display = "none";
+                        }, 3000);
+                    });
+            });
+        }
 
         function handleFormSubmit(event) {
             event.preventDefault();
@@ -548,3 +558,4 @@ function updateStars(stars, rating) {
 </body>
 
 </html>
+/
