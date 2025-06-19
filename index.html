@@ -428,40 +428,40 @@
 
         // Star rating functionality
 
-        function initializeStarRatings() {
-    document.querySelectorAll('.star-rating').forEach(rating => {
-        const stars = rating.querySelectorAll('.star');
-        const hiddenInput = rating.querySelector('input[type="hidden"]'); // Get the hidden input
-        let currentRating = 0; // Use a number to track the current rating
+       function initializeStarRatings() {
+            document.querySelectorAll('.star-rating').forEach(rating => {
+                const stars = rating.querySelectorAll('.star');
+                const hiddenInput = rating.querySelector('input[type="hidden"]'); // Get the hidden input
+                let currentRating = 0; // Use a number to track the current rating
 
-        stars.forEach((star, index) => {
-            star.addEventListener('click', () => {
-                currentRating = index + 1; // Update currentRating on click
-                updateStars(stars, currentRating); // Update star visuals
-                rating.setAttribute('data-value', currentRating);
-                hiddenInput.value = currentRating;  // Update hidden input with numeric value
+                stars.forEach((star, index) => {
+                    star.addEventListener('click', () => {
+                        currentRating = index + 1; // Update currentRating on click
+                        updateStars(stars, currentRating); // Update star visuals
+                        rating.setAttribute('data-value', currentRating);
+                        hiddenInput.value = currentRating;  // Update hidden input with numeric value
+                    });
+
+                    star.addEventListener('mouseenter', () => {
+                        updateStars(stars, index + 1);
+                    });
+                });
+
+                rating.addEventListener('mouseleave', () => {
+                    updateStars(stars, currentRating); // Keep the current rating highlighted
+                });
             });
-
-            star.addEventListener('mouseenter', () => {
-                updateStars(stars, index + 1);
-            });
-        });
-
-        rating.addEventListener('mouseleave', () => {
-            updateStars(stars, currentRating); // Keep the current rating highlighted
-        });
-    });
-}
-
-function updateStars(stars, rating) {
-    stars.forEach((star, index) => {
-        if (index < rating) {
-            star.classList.add('active'); // Add active class for selected stars
-        } else {
-            star.classList.remove('active'); // Remove active class for unselected stars
         }
-    });
-}
+
+        function updateStars(stars, rating) {
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('active'); // Add active class for selected stars
+                } else {
+                    star.classList.remove('active'); // Remove active class for unselected stars
+                }
+            });
+        }
 
         // Form submission handler
 
