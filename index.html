@@ -432,14 +432,14 @@
     document.querySelectorAll('.star-rating').forEach(rating => {
         const stars = rating.querySelectorAll('.star');
         const hiddenInput = rating.querySelector('input[type="hidden"]'); // Get the hidden input
-        let currentRating = 0; // Use a number to track the current rating
+        let currentRating = 0; // Track the current rating
 
         stars.forEach((star, index) => {
             star.addEventListener('click', () => {
                 currentRating = index + 1; // Update currentRating on click
                 updateStars(stars, currentRating); // Update star visuals
-                rating.setAttribute('data-value', currentRating);
-                hiddenInput.value = currentRating;  // Update hidden input with numeric value
+                const starRepresentation = '★'.repeat(currentRating) + '☆'.repeat(5 - currentRating); // Create star string
+                hiddenInput.value = starRepresentation; // Update hidden input with stars
             });
 
             star.addEventListener('mouseenter', () => {
@@ -518,7 +518,7 @@ function updateStars(stars, rating) {
             console.log('Feedback submitted:', formData);
         }
 
-        function collectFormData() {
+       function collectFormData() {
     const formData = new FormData(document.getElementById('feedbackForm'));
     const data = Object.fromEntries(formData.entries());
 
@@ -526,9 +526,8 @@ function updateStars(stars, rating) {
     const ratings = {};
     document.querySelectorAll('.star-rating').forEach(rating => {
         const name = rating.getAttribute('data-rating');
-        const value = rating.getAttribute('data-value') || 0;
-        const stars = '★'.repeat(value) + '☆'.repeat(5 - value); // Create star representation
-        ratings[name] = stars; // Store stars instead of numeric value
+        const stars = rating.querySelector('input[type="hidden"]').value; // Get star representation
+        ratings[name] = stars; // Store stars
     });
 
     // Combine form data and ratings
