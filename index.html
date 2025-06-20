@@ -388,10 +388,6 @@
                     </div>
                 </div>
 
-                <div class="Customer Satisfaction"> 
-                    <input type="hidden" name="Actual Target" id="actualTarget" value="">
-                </div>
-
                 <!-- Submit Button -->
                 <div class="text-center pt-6">
                     <button type="submit"
@@ -470,46 +466,20 @@
         // Form submission handler
 
         function initializeFormSubmission() {
-    const form = document.getElementById('feedbackForm');
-    form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        
-        const formData = new FormData(form);
-        const ratings = collectStarRatings();
-        
-        // Calculate the satisfaction percentage
-        const totalRating = Object.values(ratings).reduce((acc, val) => acc + val, 0);
-        const maxRating = Object.keys(ratings).length * 5; // 5 stars for each rating
-        const satisfactionPercentage = (totalRating / maxRating) * 100;
+            //document.getElementById('feedbackForm').addEventListener('submit', handleFormSubmit);
+            const form = document.getElementById('form');
+            const result = document.getElementById('result');
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const formData = new FormData(form);
+                const object = Object.fromEntries(formData);
+                const json = JSON.stringify(object);
+                result.innerHTML = "Please wait..."
 
-        // Set the satisfaction percentage to the hidden input
-        document.getElementById('actualTarget').value = satisfactionPercentage.toFixed(2) + '%';
 
-        // Add the satisfaction percentage to the form data
-        formData.append('CUSTOMER_SATISFACTION', satisfactionPercentage.toFixed(2) + '%');
+            });
+        }
 
-        // Send the form data to your server endpoint
-        fetch('https://formsubmit.co/technical@eeatgroup.com', {
-            method: 'POST',
-            body: formData // Use FormData directly
-        })
-        .then(async (response) => {
-            if (response.ok) {
-                alert("Form submitted successfully");
-            } else {
-                const json = await response.json();
-                alert(json.message);
-            }
-        })
-        .catch(error => {
-            console.error(error);
-            alert("Something went wrong!");
-        })
-        .finally(() => {
-            form.reset();
-        });
-    });
-}
         function handleFormSubmit(event) {
             event.preventDefault();
 
@@ -520,17 +490,27 @@
             console.log('Feedback submitted:', formData);
         }
 
-        
-            function collectStarRatings() {
-    const ratings = {};
-    document.querySelectorAll('.star-rating').forEach(rating => {
-        const name = rating.getAttribute('data-rating');
-        const value = rating.querySelector('input[type="hidden"]').value.length; // Count stars
-        ratings[name] = value; // Store the star count
-    });
-    return ratings;
-}
-        
+        function collectFormData() {
+            function collectFormData() {
+                const formData = new FormData(document.getElementById('feedbackForm'));
+                const data = Object.fromEntries(formData.entries());
+
+                // Collect star ratings
+                const ratings = {};
+                document.querySelectorAll('.star-rating').forEach(rating => {
+                    const name = rating.getAttribute('data-rating');
+                    const value = rating.getAttribute('data-value') || 0;
+                    ratings[name] = parseInt(value);
+                });
+
+                // Combine form data and ratings
+                return {
+                    ...data,
+                    ...ratings,
+                    submittedAt: new Date().toISOString()
+                };
+            }
+        }
 
         // Initialize all functionality when DOM is loaded
         document.addEventListener('DOMContentLoaded', function () {
