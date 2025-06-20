@@ -466,47 +466,47 @@
         // Form submission handler
 
         function initializeFormSubmission() {
-            //document.getElementById('feedbackForm').addEventListener('submit', handleFormSubmit);
-            const form = document.getElementById('form');
-            const result = document.getElementById('result');
-            form.addEventListener('submit', function (e) {
-                e.preventDefault();
-                const formData = new FormData(form);
-                const object = Object.fromEntries(formData);
-                const json = JSON.stringify(object);
-                result.innerHTML = "Please wait..."
+    const form = document.getElementById('feedbackForm');
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        
+        const formData = new FormData(form);
+        const ratings = collectStarRatings();
+        
+        // Calculate the satisfaction percentage
+        const totalRating = Object.values(ratings).reduce((acc, val) => acc + val, 0);
+        const maxRating = Object.keys(ratings).length * 5; // 5 stars for each rating
+        const satisfactionPercentage = (totalRating / maxRating) * 100;
 
-                fetch('https://api.web3forms.com/submit', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: json
-                })
+        // Add the satisfaction percentage to the form data
+        formData.append('CUSTOMER_SATISFACTION', satisfactionPercentage.toFixed(2) + '%');
 
-                    .then(async (response) => {
-                        let json = await response.json();
-                        if (response.status == 200) {
-                            result.innerHTML = "Form submitted successfully";
-                        } else {
-                            console.log(response);
-                            result.innerHTML = json.message;
-                        }
-                    })
-
-                    .catch(error => {
-                        console.log(error);
-                        result.innerHTML = "Something went wrong!";
-                    })
-                    .then(function () {
-                        form.reset();
-                        setTimeout(() => {
-                            result.style.display = "none";
-                        }, 3000);
-                    });
-            });
-        }
+        // Send the form data
+        fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(Object.fromEntries(formData))
+        })
+        .then(async (response) => {
+            let json = await response.json();
+            if (response.status == 200) {
+                alert("Form submitted successfully");
+            } else {
+                alert(json.message);
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            alert("Something went wrong!");
+        })
+        .finally(() => {
+            form.reset();
+        });
+    });
+}
 
         function handleFormSubmit(event) {
             event.preventDefault();
@@ -518,27 +518,16 @@
             console.log('Feedback submitted:', formData);
         }
 
-        function collectFormData() {
-            function collectFormData() {
-                const formData = new FormData(document.getElementById('feedbackForm'));
-                const data = Object.fromEntries(formData.entries());
-
-                // Collect star ratings
-                const ratings = {};
-                document.querySelectorAll('.star-rating').forEach(rating => {
-                    const name = rating.getAttribute('data-rating');
-                    const value = rating.getAttribute('data-value') || 0;
-                    ratings[name] = parseInt(value);
-                });
-
-                // Combine form data and ratings
-                return {
-                    ...data,
-                    ...ratings,
-                    submittedAt: new Date().toISOString()
-                };
-            }
-        }
+        function collectStarRatings() {
+    const ratings = {};
+    document.querySelectorAll('.star-rating').forEach(rating => {
+        const name = rating.getAttribute('data-rating');
+        const value = rating.getAttribute('data-value') || 0;
+        // Count stars (🌟) based on the number of stars selected
+        ratings[name] = value.length; // Count the number of star characters
+    });
+    return ratings;
+}
 
         // Initialize all functionality when DOM is loaded
         document.addEventListener('DOMContentLoaded', function () {
