@@ -520,27 +520,17 @@
             console.log('Feedback submitted:', formData);
         }
 
-        function collectFormData() {
-            function collectFormData() {
-                const formData = new FormData(document.getElementById('feedbackForm'));
-                const data = Object.fromEntries(formData.entries());
-
-                // Collect star ratings
-                const ratings = {};
-                document.querySelectorAll('.star-rating').forEach(rating => {
-                    const name = rating.getAttribute('data-rating');
-                    const value = rating.getAttribute('data-value') || 0;
-                    ratings[name] = parseInt(value);
-                });
-
-                // Combine form data and ratings
-                return {
-                    ...data,
-                    ...ratings,
-                    submittedAt: new Date().toISOString()
-                };
-            }
-        }
+        
+            function collectStarRatings() {
+    const ratings = {};
+    document.querySelectorAll('.star-rating').forEach(rating => {
+        const name = rating.getAttribute('data-rating');
+        const value = rating.querySelector('input[type="hidden"]').value.length; // Count stars
+        ratings[name] = value; // Store the star count
+    });
+    return ratings;
+}
+        
 
         // Initialize all functionality when DOM is loaded
         document.addEventListener('DOMContentLoaded', function () {
