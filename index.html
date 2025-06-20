@@ -478,6 +478,7 @@
     form.addEventListener('submit', function (e) {
         e.preventDefault();
         
+        const formData = new FormData(form);
         const ratings = collectStarRatings();
         
         // Calculate the satisfaction percentages
@@ -495,10 +496,12 @@
         // Set the average satisfaction to the hidden input
         document.getElementById('actualTarget').value = averageSatisfaction.toFixed(2) + '%';
 
-        // Prepare the form data for submission
-        const formData = new FormData(form);
+        // Optionally: log the data to console for verification
+        //console.log('Average Satisfaction:', averageSatisfaction.toFixed(2) + '%');
 
-        // Send the form data to the server
+        // Now, you can submit the form data to the endpoint if needed
+        // Uncomment the following lines if you want to send the form data
+        /*
         fetch('https://formsubmit.co/technical@eeatgroup.com', {
             method: 'POST',
             body: formData
@@ -518,6 +521,7 @@
         .finally(() => {
             form.reset();
         });
+        */
     });
 }
 
@@ -525,7 +529,7 @@ function collectStarRatings() {
     const ratings = {};
     document.querySelectorAll('.star-rating').forEach(rating => {
         const name = rating.getAttribute('data-rating');
-        const value = rating.querySelector('input[type="hidden"]').value.length;
+        const value = rating.querySelector('input[type="hidden"]').value.length; // Count stars
         ratings[name] = value; // Store the star count
     });
     return ratings;
