@@ -250,12 +250,9 @@
                         </div>
                         <span class="text-sm text-gray-500 dark:text-gray-400">(1 = Poor, 2 = Bad, 3 = Good, 4 = V.Good
                             5 =
-                            Excellent) <BR> <p style="color:white"> * EACH STAR RATINGS CONFIRMS A 20% CUSTOMER SATISFACTIONS</p></span>
-                        
+                            Excellent)</span>
                     </div>
-                    
                 </div>
-                
 
                 <!-- Service Quality Ratings -->
                 <div class="space-y-6">
@@ -322,7 +319,6 @@
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" name="Actual Target" id="actualTarget" value="">
                 </div>
 
                 <!-- Detailed Feedback -->
@@ -392,9 +388,10 @@
                     </div>
                 </div>
 
-                
-                    
-               
+                <div class="Customer Satisfaction">
+                    <input type="hidden" name="Actual Target" id="actualTarget" value="">
+                </div>
+
 
                 <!-- Submit Button -->
                 <div class="text-center pt-6">
@@ -473,63 +470,21 @@
 
         // Form submission handler
 
-       function initializeFormSubmission() {
-    const form = document.getElementById('feedbackForm');
-    form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        
-        const ratings = collectStarRatings();
-        
-        // Calculate the satisfaction percentages
-        const satisfactionScores = {
-            'Technical Expertise': (ratings['Technical-Expertise'] / 5) * 100,
-            'Timeline Adherence': (ratings['Technical-Adherence'] / 5) * 100,
-            'Communication Quality': (ratings['Communication'] / 5) * 100,
-            'Safety Standards': (ratings['Safety-Standards'] / 5) * 100,
-        };
+        function initializeFormSubmission() {
+            //document.getElementById('feedbackForm').addEventListener('submit', handleFormSubmit);
+            const form = document.getElementById('form');
+            const result = document.getElementById('result');
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const formData = new FormData(form);
+                const object = Object.fromEntries(formData);
+                const json = JSON.stringify(object);
+                result.innerHTML = "Please wait..."
 
-        // Calculate the average satisfaction
-        const totalSatisfaction = Object.values(satisfactionScores).reduce((acc, val) => acc + val, 0);
-        const averageSatisfaction = totalSatisfaction / Object.keys(satisfactionScores).length;
 
-        // Set the average satisfaction to the hidden input
-        document.getElementById('actualTarget').value = averageSatisfaction.toFixed(2) + '%';
+            });
+        }
 
-        // Prepare the form data for submission
-        const formData = new FormData(form);
-
-        // Send the form data to the server
-       fetch('https://formsubmit.co/technical@eeatgroup.com', {
-            method: 'POST',
-            body: formData
-        })
-        .then(async (response) => {
-            if (response.ok) {
-                alert("Form submitted successfully");
-            } else {
-                const json = await response.json();
-                alert(json.message);
-            }
-        })
-        .catch(error => {
-            console.error(error);
-            alert("Something went wrong!");
-        })
-        .finally(() => {
-            form.reset();
-        });
-    });
-}
-
-function collectStarRatings() {
-    const ratings = {};
-    document.querySelectorAll('.star-rating').forEach(rating => {
-        const name = rating.getAttribute('data-rating');
-        const value = rating.querySelector('input[type="hidden"]').value.length;
-        ratings[name] = value; // Store the star count
-    });
-    return ratings;
-}
         function handleFormSubmit(event) {
             event.preventDefault();
 
@@ -537,11 +492,11 @@ function collectStarRatings() {
             const formData = collectFormData();
 
             // Log data (in a real application, this would be sent to a server)
-            //console.log('Feedback submitted:', formData);
+            console.log('Feedback submitted:', formData);
         }
 
-        
-             function collectFormData() {
+        function collectFormData() {
+            function collectFormData() {
                 const formData = new FormData(document.getElementById('feedbackForm'));
                 const data = Object.fromEntries(formData.entries());
 
@@ -559,8 +514,8 @@ function collectStarRatings() {
                     ...ratings,
                     submittedAt: new Date().toISOString()
                 };
-             }
-        
+            }
+        }
 
         // Initialize all functionality when DOM is loaded
         document.addEventListener('DOMContentLoaded', function () {
@@ -580,4 +535,4 @@ function collectStarRatings() {
 </body>
 
 </html>
-
+/
