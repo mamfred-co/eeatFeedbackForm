@@ -388,6 +388,10 @@
                     </div>
                 </div>
 
+               <div class="Customer Satisfaction"> 
+                 <input type="hidden" name="Actual Target" id="actualTarget" value="">
+              </div>
+
                 <!-- Submit Button -->
                 <div class="text-center pt-6">
                     <button type="submit"
@@ -477,6 +481,9 @@
         const totalRating = Object.values(ratings).reduce((acc, val) => acc + val, 0);
         const maxRating = Object.keys(ratings).length * 5; // 5 stars for each rating
         const satisfactionPercentage = (totalRating / maxRating) * 100;
+
+        // Set the satisfaction percentage to the hidden input
+        document.getElementById('actualTarget').value = satisfactionPercentage.toFixed(2) + '%';
 
         // Add the satisfaction percentage to the form data
         formData.append('CUSTOMER_SATISFACTION', satisfactionPercentage.toFixed(2) + '%');
