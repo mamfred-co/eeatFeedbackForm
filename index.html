@@ -473,7 +473,7 @@
 
         // Form submission handler
 
-        function initializeFormSubmission() {
+       function initializeFormSubmission() {
     const form = document.getElementById('feedbackForm');
     form.addEventListener('submit', function (e) {
         e.preventDefault();
@@ -495,9 +495,10 @@
         // Set the average satisfaction to the hidden input
         document.getElementById('actualTarget').value = averageSatisfaction.toFixed(2) + '%';
 
-        // Uncomment to send form data if needed
-        /*
+        // Prepare the form data for submission
         const formData = new FormData(form);
+
+        // Send the form data to the server
         fetch('https://formsubmit.co/technical@eeatgroup.com', {
             method: 'POST',
             body: formData
@@ -517,7 +518,6 @@
         .finally(() => {
             form.reset();
         });
-        */
     });
 }
 
@@ -529,7 +529,6 @@ function collectStarRatings() {
         ratings[name] = value; // Store the star count
     });
     return ratings;
-}
 }
 
         function handleFormSubmit(event) {
@@ -543,7 +542,7 @@ function collectStarRatings() {
         }
 
         function collectFormData() {
-            function collectFormData() {
+            
                 const formData = new FormData(document.getElementById('feedbackForm'));
                 const data = Object.fromEntries(formData.entries());
 
@@ -561,7 +560,7 @@ function collectStarRatings() {
                     ...ratings,
                     submittedAt: new Date().toISOString()
                 };
-            }
+           
         }
 
         // Initialize all functionality when DOM is loaded
