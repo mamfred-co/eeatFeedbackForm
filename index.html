@@ -541,7 +541,7 @@ function collectStarRatings() {
             console.log('Feedback submitted:', formData);
         }
 
-        function collectFormData() {
+        
              function collectFormData() {
                 const formData = new FormData(document.getElementById('feedbackForm'));
                 const data = Object.fromEntries(formData.entries());
@@ -561,7 +561,7 @@ function collectStarRatings() {
                     submittedAt: new Date().toISOString()
                 };
              }
-        }
+        
 
         // Initialize all functionality when DOM is loaded
         document.addEventListener('DOMContentLoaded', function () {
