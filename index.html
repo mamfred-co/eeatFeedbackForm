@@ -542,7 +542,7 @@ function collectStarRatings() {
         }
 
         function collectFormData() {
-            
+             function collectFormData() {
                 const formData = new FormData(document.getElementById('feedbackForm'));
                 const data = Object.fromEntries(formData.entries());
 
@@ -560,7 +560,7 @@ function collectStarRatings() {
                     ...ratings,
                     submittedAt: new Date().toISOString()
                 };
-           
+             }
         }
 
         // Initialize all functionality when DOM is loaded
