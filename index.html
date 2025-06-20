@@ -429,39 +429,39 @@
         // Star rating functionality
 
         function initializeStarRatings() {
-    document.querySelectorAll('.star-rating').forEach(rating => {
-        const stars = rating.querySelectorAll('.star');
-        const hiddenInput = rating.querySelector('input[type="hidden"]'); // Get the hidden input
-        let currentRating = 0; // Track the current rating
+            document.querySelectorAll('.star-rating').forEach(rating => {
+                const stars = rating.querySelectorAll('.star');
+                const hiddenInput = rating.querySelector('input[type="hidden"]'); // Get the hidden input
+                let currentRating = 0; // Use a number to track the current rating
 
-        stars.forEach((star, index) => {
-            star.addEventListener('click', () => {
-                currentRating = index + 1; // Update currentRating on click
-                updateStars(stars, currentRating); // Update star visuals
-                const starRepresentation = '★'.repeat(currentRating) + '☆'.repeat(5 - currentRating); // Create star string
-                hiddenInput.value = starRepresentation; // Update hidden input with stars
+                stars.forEach((star, index) => {
+                    star.addEventListener('click', () => {
+                        currentRating = index + 1; // Update currentRating on click
+                        updateStars(stars, currentRating); // Update star visuals
+                        rating.setAttribute('data-value', currentRating);
+                        hiddenInput.value = currentRating;  // Update hidden input with numeric value
+                    });
+
+                    star.addEventListener('mouseenter', () => {
+                        updateStars(stars, index + 1);
+                    });
+                });
+
+                rating.addEventListener('mouseleave', () => {
+                    updateStars(stars, currentRating); // Keep the current rating highlighted
+                });
             });
-
-            star.addEventListener('mouseenter', () => {
-                updateStars(stars, index + 1);
-            });
-        });
-
-        rating.addEventListener('mouseleave', () => {
-            updateStars(stars, currentRating); // Keep the current rating highlighted
-        });
-    });
-}
-
-function updateStars(stars, rating) {
-    stars.forEach((star, index) => {
-        if (index < rating) {
-            star.classList.add('active'); // Add active class for selected stars
-        } else {
-            star.classList.remove('active'); // Remove active class for unselected stars
         }
-    });
-}
+
+        function updateStars(stars, rating) {
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('active'); // Add active class for selected stars
+                } else {
+                    star.classList.remove('active'); // Remove active class for unselected stars
+                }
+            });
+        }
 
         // Form submission handler
 
@@ -518,25 +518,27 @@ function updateStars(stars, rating) {
             console.log('Feedback submitted:', formData);
         }
 
-       function collectFormData() {
-    const formData = new FormData(document.getElementById('feedbackForm'));
-    const data = Object.fromEntries(formData.entries());
+        function collectFormData() {
+            function collectFormData() {
+                const formData = new FormData(document.getElementById('feedbackForm'));
+                const data = Object.fromEntries(formData.entries());
 
-    // Collect star ratings as stars
-    const ratings = {};
-    document.querySelectorAll('.star-rating').forEach(rating => {
-        const name = rating.getAttribute('data-rating');
-        const stars = rating.querySelector('input[type="hidden"]').value; // Get star representation
-        ratings[name] = stars; // Store stars
-    });
+                // Collect star ratings
+                const ratings = {};
+                document.querySelectorAll('.star-rating').forEach(rating => {
+                    const name = rating.getAttribute('data-rating');
+                    const value = rating.getAttribute('data-value') || 0;
+                    ratings[name] = parseInt(value);
+                });
 
-    // Combine form data and ratings
-    return {
-        ...data,
-        ...ratings,
-        submittedAt: new Date().toISOString()
-    };
-}
+                // Combine form data and ratings
+                return {
+                    ...data,
+                    ...ratings,
+                    submittedAt: new Date().toISOString()
+                };
+            }
+        }
 
         // Initialize all functionality when DOM is loaded
         document.addEventListener('DOMContentLoaded', function () {
