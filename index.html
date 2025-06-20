@@ -436,7 +436,7 @@
 
         stars.forEach((star, index) => {
             star.addEventListener('click', () => {
-                currentRating = '🌟'.repeat(index + 1); // Update currentRating with stars
+                currentRating = '⭐'.repeat(index + 1); // Update currentRating with stars
                 updateStars(stars, index + 1); // Update star visuals
                 rating.setAttribute('data-value', currentRating);
                 hiddenInput.value = currentRating;  // Update hidden input with star character
