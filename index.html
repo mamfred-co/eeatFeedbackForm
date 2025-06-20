@@ -229,8 +229,8 @@
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Email Address *
                         </label>
-                        <input type="email" required name="EMAIL"
-                            class="form-input dark:bg-gray-700 dark:text-white" placeholder="contact@company.com">
+                        <input type="email" required name="EMAIL" class="form-input dark:bg-gray-700 dark:text-white"
+                            placeholder="contact@company.com">
                     </div>
                 </div>
 
@@ -280,7 +280,7 @@
                                 Timeline Adherence
                             </label>
                             <div class="star-rating" data-rating="timeline-adherence">
-                                 <input type="hidden" name="Technical-Adherence" value="0"> <!-- Hidden input -->
+                                <input type="hidden" name="Technical-Adherence" value="0"> <!-- Hidden input -->
                                 <span class="star" data-value="1">&#9734</span>
                                 <span class="star" data-value="2">&#9734</span>
                                 <span class="star" data-value="3">&#9734</span>
@@ -295,7 +295,7 @@
                                 Communication Quality
                             </label>
                             <div class="star-rating" data-rating="communication">
-                                 <input type="hidden" name="Communication" value="0"> <!-- Hidden input -->
+                                <input type="hidden" name="Communication" value="0"> <!-- Hidden input -->
                                 <span class="star" data-value="1">&#9734</span>
                                 <span class="star" data-value="2">&#9734</span>
                                 <span class="star" data-value="3">&#9734</span>
@@ -310,7 +310,7 @@
                                 Safety Standards
                             </label>
                             <div class="star-rating" data-rating="safety-standards">
-                                 <input type="hidden" name="Safety-Standards" value="0"> <!-- Hidden input -->
+                                <input type="hidden" name="Safety-Standards" value="0"> <!-- Hidden input -->
                                 <span class="star" data-value="1">&#9734</span>
                                 <span class="star" data-value="2">&#9734</span>
                                 <span class="star" data-value="3">&#9734</span>
@@ -388,10 +388,6 @@
                     </div>
                 </div>
 
-               <div class="Customer Satisfaction"> 
-                 <input type="hidden" name="Actual Target" id="actualTarget" value="">
-              </div>
-
                 <!-- Submit Button -->
                 <div class="text-center pt-6">
                     <button type="submit"
@@ -433,29 +429,29 @@
         // Star rating functionality
 
         function initializeStarRatings() {
-    document.querySelectorAll('.star-rating').forEach(rating => {
-        const stars = rating.querySelectorAll('.star');
-        const hiddenInput = rating.querySelector('input[type="hidden"]'); // Get the hidden input
-        let currentRating = ''; // Use a string to track the current rating
+            document.querySelectorAll('.star-rating').forEach(rating => {
+                const stars = rating.querySelectorAll('.star');
+                const hiddenInput = rating.querySelector('input[type="hidden"]'); // Get the hidden input
+                let currentRating = ''; // Use a string to track the current rating
 
-        stars.forEach((star, index) => {
-            star.addEventListener('click', () => {
-                currentRating = '⭐'.repeat(index + 1); // Update currentRating with stars
-                updateStars(stars, index + 1); // Update star visuals
-                rating.setAttribute('data-value', currentRating);
-                hiddenInput.value = currentRating;  // Update hidden input with star character
+                stars.forEach((star, index) => {
+                    star.addEventListener('click', () => {
+                        currentRating = '⭐'.repeat(index + 1); // Update currentRating with stars
+                        updateStars(stars, index + 1); // Update star visuals
+                        rating.setAttribute('data-value', currentRating);
+                        hiddenInput.value = currentRating;  // Update hidden input with star character
+                    });
+
+                    star.addEventListener('mouseenter', () => {
+                        updateStars(stars, index + 1);
+                    });
+                });
+
+                rating.addEventListener('mouseleave', () => {
+                    updateStars(stars, currentRating.length); // Keep the current rating highlighted
+                });
             });
-
-            star.addEventListener('mouseenter', () => {
-                updateStars(stars, index + 1);
-            });
-        });
-
-        rating.addEventListener('mouseleave', () => {
-            updateStars(stars, currentRating.length); // Keep the current rating highlighted
-        });
-    });
-}
+        }
 
         function updateStars(stars, rating) {
             stars.forEach((star, index) => {
@@ -470,50 +466,47 @@
         // Form submission handler
 
         function initializeFormSubmission() {
-    const form = document.getElementById('feedbackForm');
-    form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        
-        const formData = new FormData(form);
-        const ratings = collectStarRatings();
-        
-        // Calculate the satisfaction percentage
-        const totalRating = Object.values(ratings).reduce((acc, val) => acc + val, 0);
-        const maxRating = Object.keys(ratings).length * 5; // 5 stars for each rating
-        const satisfactionPercentage = (totalRating / maxRating) * 100;
+            //document.getElementById('feedbackForm').addEventListener('submit', handleFormSubmit);
+            const form = document.getElementById('form');
+            const result = document.getElementById('result');
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const formData = new FormData(form);
+                const object = Object.fromEntries(formData);
+                const json = JSON.stringify(object);
+                result.innerHTML = "Please wait..."
 
-        // Set the satisfaction percentage to the hidden input
-        document.getElementById('actualTarget').value = satisfactionPercentage.toFixed(2) + '%';
+                fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: json
+                })
 
-        // Add the satisfaction percentage to the form data
-        formData.append('CUSTOMER_SATISFACTION', satisfactionPercentage.toFixed(2) + '%');
+                    .then(async (response) => {
+                        let json = await response.json();
+                        if (response.status == 200) {
+                            result.innerHTML = "Form submitted successfully";
+                        } else {
+                            console.log(response);
+                            result.innerHTML = json.message;
+                        }
+                    })
 
-        // Send the form data
-        fetch('https://api.web3forms.com/submit', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify(Object.fromEntries(formData))
-        })
-        .then(async (response) => {
-            let json = await response.json();
-            if (response.status == 200) {
-                alert("Form submitted successfully");
-            } else {
-                alert(json.message);
-            }
-        })
-        .catch(error => {
-            console.error(error);
-            alert("Something went wrong!");
-        })
-        .finally(() => {
-            form.reset();
-        });
-    });
-}
+                    .catch(error => {
+                        console.log(error);
+                        result.innerHTML = "Something went wrong!";
+                    })
+                    .then(function () {
+                        form.reset();
+                        setTimeout(() => {
+                            result.style.display = "none";
+                        }, 3000);
+                    });
+            });
+        }
 
         function handleFormSubmit(event) {
             event.preventDefault();
@@ -525,16 +518,27 @@
             console.log('Feedback submitted:', formData);
         }
 
-        function collectStarRatings() {
-    const ratings = {};
-    document.querySelectorAll('.star-rating').forEach(rating => {
-        const name = rating.getAttribute('data-rating');
-        const value = rating.getAttribute('data-value') || 0;
-        // Count stars (🌟) based on the number of stars selected
-        ratings[name] = value.length; // Count the number of star characters
-    });
-    return ratings;
-}
+        function collectFormData() {
+            function collectFormData() {
+                const formData = new FormData(document.getElementById('feedbackForm'));
+                const data = Object.fromEntries(formData.entries());
+
+                // Collect star ratings
+                const ratings = {};
+                document.querySelectorAll('.star-rating').forEach(rating => {
+                    const name = rating.getAttribute('data-rating');
+                    const value = rating.getAttribute('data-value') || 0;
+                    ratings[name] = parseInt(value);
+                });
+
+                // Combine form data and ratings
+                return {
+                    ...data,
+                    ...ratings,
+                    submittedAt: new Date().toISOString()
+                };
+            }
+        }
 
         // Initialize all functionality when DOM is loaded
         document.addEventListener('DOMContentLoaded', function () {
