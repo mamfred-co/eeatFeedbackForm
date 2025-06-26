@@ -71,6 +71,19 @@
             gap: 0.5rem;
         }
 
+        #foot_img {
+            width: 40px;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            align-self: center;
+            text-align: center;
+        }
+
+        #foot_img img {
+            margin: 20px;
+        }
+
         /* Dark mode styles */
         @media (prefers-color-scheme: dark) {
             .star {
@@ -415,12 +428,7 @@
                     <input type="hidden" name="Actual Target" id="actualTarget" value="">
                 </div>
 
-                <div>
-                    <img src="">
-                    <img src="">
-                    <img src="">
-                </div>
-
+                
 
                 <!-- Submit Button -->
                 <div class="text-center pt-6">
@@ -437,7 +445,16 @@
             <p>Thank you for taking the time to provide your valuable feedback.</p>
             <p class="mt-1">EEAT Group - Excellence in Oil & Gas Services | www.eeatgroup.com</p>
         </div>
-    </div>
+
+        <center>
+        <div id="foot_img" class="text-center mt-8 text-sm text-gray-500 dark:text-gray-400">
+            <img src="https://eeatgroup.com/wp-content/uploads/2025/01/cropped-eeatgroup_logo-1-300x212.png">
+            <img src="dmsl iso.png">
+            <img src="iaf.png">
+            <img src="ias.png">
+        </div>
+    </center>
+  
 
     <script>
         // JAVASCRIPT CODE
